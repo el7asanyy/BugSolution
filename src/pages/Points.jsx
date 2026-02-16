@@ -149,14 +149,17 @@ const PointsPage = () => {
              <motion.div variants={itemVariants}>
                 <div className="flex items-center justify-between mb-4 px-2">
                     <h3 className="font-black text-gray-800 tracking-tight">{t('history')}</h3>
-                    <motion.button 
-                        whileHover={{ x: isRtl ? -5 : 5, color: '#8B7500' }}
+                    <button
+                        type="button"
                         onClick={() => navigate('/history')}
-                        className="text-sm font-black text-[#C0A94F] flex items-center gap-1"
+                        className="flex items-center gap-1 text-xs font-semibold text-[#C0A94F] hover:underline"
                     >
                         {t('showMore')}
-                        <ChevronRight size={16} className={!isRtl && 'rotate-180'} />
-                    </motion.button>
+                        <ChevronRight
+                            size={14}
+                            className={isRtl ? '' : 'rotate-180'}
+                        />
+                    </button>
                 </div>
                 <div className="bg-white rounded-[2rem] shadow-sm border border-gray-50 overflow-hidden">
                     <HistoryItem 

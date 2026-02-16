@@ -1,10 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AppLayout from '../components/layout/AppLayout';
 import BottomNavigation from '../components/layout/BottomNavigation';
 import { Bell, TrendingUp, Flame, Gift, Droplets, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+
+const banners = [
+    // تقدر تبدّل الـ backgroundImage هنا بصور حقيقية بعدين
+    { id: 1, title: 'banner-1' },
+    { id: 2, title: 'banner-2' },
+    { id: 3, title: 'banner-3' }
+];
+
+const BannerCarousel = ({ dir }) => {
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % banners.length);
+        }, 4000);
+        return () => clearInterval(timer);
+    }, []);
+
+    return (
+        <motion.div
+            className="rounded-[2rem] bg-white overflow-hidden shadow-sm border border-gray-100"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+        >
+            {/* Slide area */}
+            <div className="relative h-40 bg-gray-100">
+                {banners.map((banner, index) => (
+                    <motion.div
+                        key={banner.id}
+                        animate={{ opacity: index === activeIndex ? 1 : 0 }}
+                        transition={{ duration: 0.4 }}
+                        className={`absolute inset-0 ${index === activeIndex ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                    >
+                        {/* Placeholder checkered background – استبدله بصورة حقيقية بعدين */}
+                        <div className="w-full h-full bg-[linear-gradient(135deg,#f5f5f5_25%,transparent_25%,transparent_50%,#f5f5f5_50%,#f5f5f5_75%,transparent_75%,transparent)] bg-[length:24px_24px]" />
+                    </motion.div>
+                ))}
+            </div>
+
+            {/* Dots */}
+            <div className="flex items-center justify-center gap-2 py-3 bg-white" dir={dir}>
+                {banners.map((banner, index) => (
+                    <button
+                        key={banner.id}
+                        type="button"
+                        onClick={() => setActiveIndex(index)}
+                        className={`h-2 rounded-full transition-all ${
+                            index === activeIndex
+                                ? 'w-5 bg-[#C0A94F]'
+                                : 'w-2 bg-gray-300'
+                        }`}
+                    />
+                ))}
+            </div>
+        </motion.div>
+    );
+};
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -64,26 +122,8 @@ const HomePage = () => {
                     animate="visible"
                     className="p-4 space-y-5"
                 >
-                    {/* Promotional Banner */}
-                    <motion.div 
-                        variants={itemVariants}
-                        whileHover={{ y: -5 }}
-                        className="bg-gradient-to-br from-[#1E3A8A] via-[#2563EB] to-[#3B82F6] rounded-[2rem] p-6 text-white relative overflow-hidden"
-                    >
-                         <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
-                         <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-400/20 rounded-full -ml-10 -mb-10 blur-xl"></div>
-                         <div className="relative z-10">
-                            <h2 className="text-xl font-bold mb-2 leading-tight">{t('bannerTitle')}</h2>
-                            <p className="text-white/90 text-sm font-medium">{t('bannerDesc')}</p>
-                            <motion.div 
-                                animate={{ x: [0, 5, 0] }}
-                                transition={{ duration: 1.5, repeat: Infinity }}
-                                className="mt-4 inline-flex items-center text-xs font-bold bg-white/20 px-3 py-1.5 rounded-full backdrop-blur-sm"
-                            >
-                                {t('moreInfo')} →
-                            </motion.div>
-                        </div>
-                    </motion.div>
+                    {/* Banner Slider (placeholder images – you can plug real ones later) */}
+                    <BannerCarousel dir={dir} />
 
                     {/* Price Card */}
                     <motion.div 
@@ -167,31 +207,28 @@ const HomePage = () => {
                         </motion.div>
                     </div>
 
-                    {/* Environmental Impact */}
+                    {/* Environmental Impact section styled like the design */}
                     <motion.div 
                         variants={itemVariants}
                         whileHover={{ scale: 1.01 }}
-                        className="bg-gradient-to-br from-[#00BFA5] to-[#00897B] rounded-[2.5rem] p-8 text-white shadow-xl relative overflow-hidden"
+                        className="bg-[#00BFA5] rounded-3xl px-6 py-7 text-white shadow-lg flex flex-col items-center text-center"
                     >
-                         <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-20 -mt-20 blur-2xl"></div>
-                         <div className="absolute bottom-0 left-0 w-24 h-24 bg-teal-300/20 rounded-full -ml-12 -mb-12 blur-xl"></div>
-                         
-                         <div className="relative z-10 flex flex-col items-center text-center">
-                             <motion.div 
-                                animate={{ 
-                                    scale: [1, 1.1, 1],
-                                    opacity: [0.8, 1, 0.8]
-                                }}
-                                transition={{ duration: 4, repeat: Infinity }}
-                                className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-md border border-white/30"
-                             >
-                                <Droplets size={32} className="text-white" />
-                             </motion.div>
-                             <h3 className="font-black text-xl mb-3 tracking-wide">{t('environmentalImpact')}</h3>
-                             <p className="text-white/90 text-sm leading-relaxed max-w-[240px] font-medium">
-                                {t('impactDesc')}
-                             </p>
-                         </div>
+                        <motion.div 
+                            animate={{ 
+                                scale: [1, 1.05, 1],
+                                opacity: [0.9, 1, 0.9]
+                            }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                            className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-4"
+                        >
+                            <Droplets size={28} className="text-[#00BFA5]" />
+                        </motion.div>
+                        <h3 className="font-bold text-base mb-2">
+                            {t('environmentalImpact')}
+                        </h3>
+                        <p className="text-xs sm:text-sm leading-relaxed max-w-xs">
+                            {t('impactDesc')}
+                        </p>
                     </motion.div>
                 </motion.div>
             </div>

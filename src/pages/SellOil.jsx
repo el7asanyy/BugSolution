@@ -4,16 +4,33 @@ import AppLayout from '../components/layout/AppLayout';
 import BottomNavigation from '../components/layout/BottomNavigation';
 import { ArrowRight, Minus, Plus, Banknote, Clock, Award } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { usePlatformData } from '../context/PlatformDataContext';
 
 const SellOil = () => {
     const navigate = useNavigate();
     const { t, dir } = useLanguage();
+    const { addOrder } = usePlatformData();
     const [liters, setLiters] = useState(1);
     const PRICE_PER_LITER = 30;
     const POINTS_PER_LITER = 5;
 
     const increment = () => setLiters(prev => prev + 1);
     const decrement = () => setLiters(prev => (prev > 1 ? prev - 1 : 1));
+
+    const handleConfirm = () => {
+        const amount = liters * PRICE_PER_LITER;
+        const points = liters * POINTS_PER_LITER;
+
+        addOrder({
+            amount: `${amount} EGP`,
+            user: 'Mobile User',
+            status: 'Pending',
+            liters,
+            points
+        });
+
+        navigate('/tracking');
+    };
 
     return (
         <AppLayout>
@@ -124,7 +141,7 @@ const SellOil = () => {
                 </div> {/* This closes the p-4 space-y-6 div */}
                 <div className="p-6 bg-white border-t border-gray-100 mt-auto">
                     <button 
-                        onClick={() => navigate('/tracking')}
+                        onClick={handleConfirm}
                         className="w-full bg-[#C0A94F] text-white font-bold py-4 rounded-xl shadow-lg hover:bg-[#a89342] transition-colors text-lg"
                     >
                         {t('confirmRequest')}

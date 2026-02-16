@@ -11,10 +11,15 @@ const translations = {
     
     // Register
     registerTitle: "سجل برقم هاتفك",
-    phonePlaceholder: "رقم الهاتف",
+    registerSubtitle: "يرجى ملء الحقل برقم الهاتف والانتظار لإرسال كود التأكيد",
+    phonePlaceholder: "اكتب رقم هاتفك هنا",
+    sendCode: "ارسل الكود",
+    haveAccount: "لدي حساب بالفعل؟",
+    loginHere: "تسجيل الدخول",
+    orRegisterWith: "أو سجل من خلال",
     continueWith: "أو سجل باستخدام",
-    google: "جوجل",
-    facebook: "فيسبوك",
+    google: "التسجيل عن طريق جوجل",
+    facebook: "التسجيل عن طريق فيسبوك",
     
     // OTP
     otpTitle: "تأكيد رقم الهاتف",
@@ -173,10 +178,15 @@ const translations = {
     
     // Register
     registerTitle: "Register with Phone",
-    phonePlaceholder: "Phone Number",
+    registerSubtitle: "Please enter your phone number and wait for the verification code",
+    phonePlaceholder: "Enter your phone number",
+    sendCode: "Send Code",
+    haveAccount: "Already have an account?",
+    loginHere: "Login",
+    orRegisterWith: "Or register with",
     continueWith: "Or continue with",
-    google: "Google",
-    facebook: "Facebook",
+    google: "Continue with Google",
+    facebook: "Continue with Facebook",
     
     // OTP
     otpTitle: "Verify Phone Number",

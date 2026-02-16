@@ -151,10 +151,12 @@ const ProfilePage = () => {
                                     </div>
                                     <div>
                                         <p className="font-bold text-gray-800">{t('darkMode')}</p>
-                                        <p className="text-xs text-gray-500">{t('disabled')}</p>
+                                        <p className="text-xs text-gray-500">
+                                            {darkMode ? t('enabled') : t('disabled')}
+                                        </p>
                                     </div>
                                 </div>
-                                <Toggle checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+                                <Toggle checked={darkMode} onChange={() => setDarkMode(!darkMode)} dir={dir} />
                             </div>
 
                             {/* Notifications */}
@@ -165,10 +167,12 @@ const ProfilePage = () => {
                                     </div>
                                     <div>
                                         <p className="font-bold text-gray-800">{t('notifications')}</p>
-                                        <p className="text-xs text-gray-500">{t('disabled')}</p>
+                                        <p className="text-xs text-gray-500">
+                                            {notifications ? t('enabled') : t('disabled')}
+                                        </p>
                                     </div>
                                 </div>
-                                <Toggle checked={notifications} onChange={() => setNotifications(!notifications)} />
+                                <Toggle checked={notifications} onChange={() => setNotifications(!notifications)} dir={dir} />
                             </div>
 
                             {/* Privacy */}
@@ -208,6 +212,7 @@ const ProfilePage = () => {
                     {/* 5. Logout */}
                     <motion.button
                         variants={itemVariants}
+                        onClick={() => navigate('/')}
                         className="w-full bg-[#EF4444] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:bg-red-600 transition-colors"
                     >
                         <LogOut size={20} />
@@ -221,17 +226,26 @@ const ProfilePage = () => {
     );
 };
 
-// Simple Toggle Component
-const Toggle = ({ checked, onChange }) => (
-    <div
-        onClick={onChange}
-        className={`w-12 h-7 flex items-center rounded-full p-1 cursor-pointer transition-colors ${checked ? 'bg-[#C0A94F]' : 'bg-gray-300'}`}
-    >
-        <div
-            className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform ${checked ? 'translate-x-[-2px]' : 'translate-x-[22px]'}`} // RTL logic flip if needed, assuming LTR transform for now or handling via flex direction
-            style={{ transform: checked ? 'translateX(0)' : 'translateX(20px)' }}
-        ></div>
-    </div>
-);
+// Simple Toggle Component (RTL/LTR aware)
+const Toggle = ({ checked, onChange, dir = 'rtl' }) => {
+    const isRtl = dir === 'rtl';
+    const justifyClass = isRtl
+        ? checked
+            ? 'justify-start'
+            : 'justify-end'
+        : checked
+            ? 'justify-end'
+            : 'justify-start';
+
+    return (
+        <button
+            type="button"
+            onClick={onChange}
+            className={`w-12 h-7 rounded-full p-1 cursor-pointer transition-colors flex items-center ${justifyClass} ${checked ? 'bg-[#C0A94F]' : 'bg-gray-300'}`}
+        >
+            <div className="bg-white w-5 h-5 rounded-full shadow-md transition-transform" />
+        </button>
+    );
+};
 
 export default ProfilePage;
