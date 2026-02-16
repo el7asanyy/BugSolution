@@ -5,8 +5,8 @@ import AppLayout from '../components/layout/AppLayout';
 import BottomNavigation from '../components/layout/BottomNavigation';
 import { Bell, TrendingUp, Flame, Gift, Droplets, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import logo from '../assets/logo.png';
-import onboardingHero from '../assets/onboarding-hero.png';
+import logo from '../assets/WhatsApp Image 2026-02-16 at 4.04.05 PM.jpeg';
+import onboardingHero from '../assets/WhatsApp Image 2026-02-16 at 4.04.05 PM (1).jpeg';
 
 const banners = [
     { id: 1, image: onboardingHero, alt: 'oil collection banner', mode: 'cover' },
