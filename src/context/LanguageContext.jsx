@@ -75,10 +75,18 @@ const translations = {
     litersCount: "عدد اللترات",
     pricePerLiter: "سعر اللتر: 30 جنيه",
     totalAmount: "المبلغ الكلي",
+    totalAmountLabel: "إجمالي المبلغ", // New
+    sellQuestion: "كم لتر تريد بيعه؟", // New
     expectedArrival: "موعد الوصول المتوقع",
+    expectedArrivalTitle: "متوقع الوصول خلال", // New
+    expectedArrivalDesc: "الوقت المقدر يعتمد على جدول المجمعين", // New
     hours2_4: "خلال 2-4 ساعات",
     pointsEarned: "النقاط المكتسبة",
+    pointsEarnedTitle: "النقاط المكتسبة",
+    pointsCount: "{count} نقطة", // New
+    pointsPerLiterDesc: "{points} نقاط لكل لتر \u00D7 {liters} لتر",
     confirmRequest: "تأكيد الطلب",
+    confirmRequestBtn: "تأكيد وطلب الاستلام", // New
 
     // Points
     pointsTitle: "نقاطي",
@@ -242,10 +250,17 @@ const translations = {
     litersCount: "Number of Liters",
     pricePerLiter: "Price/Liter: 30 EGP",
     totalAmount: "Total Amount",
+    totalAmountLabel: "Total Amount", // New
+    sellQuestion: "How many liters do you want to sell?", // New
     expectedArrival: "Expected Arrival",
+    expectedArrivalTitle: "Expected Arrival", // New
+    expectedArrivalDesc: "Estimated time depends on the collectors' schedule", // New
     hours2_4: "Within 2-4 Hours",
     pointsEarned: "Points Earned",
+    pointsEarnedTitle: "Points Earned", // New
+    pointsPerLiterDesc: "{points} points per liter × {liters} liters", // New
     confirmRequest: "Confirm Request",
+    confirmRequestBtn: "Confirm & Request Pickup", // New
 
     // Points
     pointsTitle: "My Points",
@@ -351,7 +366,13 @@ export const LanguageProvider = ({ children }) => {
     setLanguage(prev => prev === 'ar' ? 'en' : 'ar');
   };
 
-  const t = (key) => translations[language][key] || key;
+  const t = (key, params = {}) => {
+    let text = translations[language][key] || key;
+    Object.keys(params).forEach(param => {
+      text = text.replace(`{${param}}`, params[param]);
+    });
+    return text;
+  };
 
   return (
     <LanguageContext.Provider value={{ language, toggleLanguage, t, dir }}>

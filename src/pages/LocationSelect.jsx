@@ -89,14 +89,14 @@ const LocationSelect = () => {
                         </MapContainer>
                         
                         {/* Bottom Actions */}
-                        <div className="absolute bottom-4 left-4 right-4 z-[1000] space-y-3">
+                        <div className="absolute bottom-10 left-4 right-4 z-[1000] space-y-3">
                              <button className="bg-white text-black p-3 rounded-xl shadow-lg flex items-center justify-center gap-2 w-full font-bold hover:bg-gray-50">
                                 <Navigation size={18} className="text-[#C0A94F]" />
                                 {t('useCurrentLocation')}
                              </button>
                              <button 
                                 onClick={handleConfirm}
-                                className="bg-[#C0A94F] text-white p-4 rounded-xl shadow-lg w-full font-bold text-lg hover:bg-[#a89342]"
+                                className="bg-[#C0A94F] text-white p-4 rounded-xl shadow-lg w-full font-bold text-lg hover:bg-[#a89342] active:scale-[0.98] transition-all"
                              >
                                 {t('confirmLocation')}
                              </button>
@@ -106,8 +106,8 @@ const LocationSelect = () => {
 
                 {/* Manual Entry Form */}
                 {activeTab === 'manual' && (
-                    <div className="flex-1 bg-gray-50 pt-32 px-4 pb-4 overflow-y-auto">
-                        <div className="bg-white rounded-2xl p-6 shadow-sm mb-20">
+                    <div className="flex-1 bg-gray-50 pt-32 px-4 pb-4 overflow-y-auto flex flex-col">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm mb-4">
                             <h3 className="text-xl font-bold mb-6 text-center text-gray-800">{t('enterAddressDetails')}</h3>
                             
                             <div className="space-y-4">
@@ -143,13 +143,13 @@ const LocationSelect = () => {
                             </div>
                         </div>
 
-                         <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100">
-                             <button 
+                        <div className="mt-auto pt-4 sticky bottom-0 bg-gray-50/80 backdrop-blur-sm -mx-4 px-4 pb-4">
+                            <button 
                                 onClick={handleConfirm}
-                                className="bg-[#C0A94F] text-white p-4 rounded-xl shadow-lg w-full font-bold text-lg hover:bg-[#a89342]"
-                             >
+                                className="bg-[#C0A94F] text-white p-4 rounded-xl shadow-lg w-full font-bold text-lg hover:bg-[#a89342] active:scale-[0.98] transition-all"
+                            >
                                 {t('confirmLocation')}
-                             </button>
+                            </button>
                         </div>
                     </div>
                 )}
