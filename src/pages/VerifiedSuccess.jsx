@@ -40,7 +40,7 @@ const VerifiedSuccess = () => {
             </button>
 
             <button 
-                onClick={() => navigate('/')} // Or wherever "Later" should go, maybe dashboard?
+                onClick={() => navigate('/home')}
                 className="text-gray-500 underline text-sm hover:text-gray-700 font-medium"
             >
                 سأضيفه لاحقاً

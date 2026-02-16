@@ -5,12 +5,12 @@ import AppLayout from '../components/layout/AppLayout';
 import BottomNavigation from '../components/layout/BottomNavigation';
 import { Bell, TrendingUp, Flame, Gift, Droplets, ShoppingBag } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import logo from '../assets/logo.png';
+import onboardingHero from '../assets/onboarding-hero.png';
 
 const banners = [
-    // تقدر تبدّل الـ backgroundImage هنا بصور حقيقية بعدين
-    { id: 1, title: 'banner-1' },
-    { id: 2, title: 'banner-2' },
-    { id: 3, title: 'banner-3' }
+    { id: 1, image: onboardingHero, alt: 'oil collection banner', mode: 'cover' },
+    { id: 2, image: logo, alt: 'Re-oil logo banner', mode: 'contain' }
 ];
 
 const BannerCarousel = ({ dir }) => {
@@ -39,8 +39,13 @@ const BannerCarousel = ({ dir }) => {
                         transition={{ duration: 0.4 }}
                         className={`absolute inset-0 ${index === activeIndex ? 'pointer-events-auto' : 'pointer-events-none'}`}
                     >
-                        {/* Placeholder checkered background – استبدله بصورة حقيقية بعدين */}
-                        <div className="w-full h-full bg-[linear-gradient(135deg,#f5f5f5_25%,transparent_25%,transparent_50%,#f5f5f5_50%,#f5f5f5_75%,transparent_75%,transparent)] bg-[length:24px_24px]" />
+                        <div className="w-full h-full bg-white flex items-center justify-center">
+                            <img
+                                src={banner.image}
+                                alt={banner.alt}
+                                className={`w-full h-full ${banner.mode === 'cover' ? 'object-cover' : 'object-contain'} rounded-[2rem]`}
+                            />
+                        </div>
                     </motion.div>
                 ))}
             </div>
